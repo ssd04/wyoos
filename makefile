@@ -40,8 +40,11 @@ install_deps:
 		mtools
 
 run: mykernel.iso
-	(killall VirtualBox && sleep 1) || true
-	VirtualBox --startvm 'My Operating System' &
+	qemu-system-x86_64 \
+		-boot d \
+		-cdrom mykernel.iso \
+		-m 512 \
+		&
 
 obj/%.o: src/%.cpp
 	mkdir -p $(@D)
