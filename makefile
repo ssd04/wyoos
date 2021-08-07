@@ -1,7 +1,4 @@
 
-# sudo apt-get install g++ binutils libc6-dev-i386
-# sudo apt-get install VirtualBox grub-legacy xorriso
-
 GCCPARAMS = -m32 -Iinclude -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore -Wno-write-strings
 ASPARAMS = --32
 LDPARAMS = -melf_i386
@@ -32,6 +29,15 @@ objects = obj/loader.o \
           obj/net/tcp.o \
           obj/kernel.o
 
+.DEFAULT_GOAL := run
+
+install_deps:
+	sudo apt-get install \
+		g++ \
+		binutils \
+		libc6-dev-i386 \
+		xorriso \
+		mtools
 
 run: mykernel.iso
 	(killall VirtualBox && sleep 1) || true
